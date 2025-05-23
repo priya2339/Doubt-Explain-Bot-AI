@@ -65,7 +65,7 @@ app.use(bodyParser.json());
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-app.post("/ask", async (req, res) => {
+app.post("/", async (req, res) => {
     const userPrompt = req.body.prompt;
     const promptWithLang = `Explain the following question in both English and Hindi:\n\n${userPrompt}`;
 
@@ -81,6 +81,10 @@ app.post("/ask", async (req, res) => {
         res.status(500).json({ error: "Failed to get AI response" });
     }
 });
+
+app.get('/', (req, res) => {
+    res.send("Server is running")
+})
 
 app.listen(port, () => {
     console.log(`✅ Server running at http://localhost:${port}`);
